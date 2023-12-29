@@ -16,7 +16,7 @@ class LessonApiTestCase(APITestCase):
         self.user = user
 
     def test_create_lesson(self):
-        """ Тестирование создания урока"""
+        """ Тестирование создания урока """
         heard = {
             "Authorization": f"Bearer {self.token}"
         }
@@ -29,7 +29,7 @@ class LessonApiTestCase(APITestCase):
                 "description_lesson": "Test",
                 "course": course.id
         }
-        response = self.client.post('/education/lesson_create/create/', data=data, headers=heard)
+        response = self.client.post('/study/lesson_create/create/', data=data, headers=heard)
 
         self.assertEqual(
                          response.status_code,
@@ -56,7 +56,7 @@ class LessonApiTestCase(APITestCase):
             "Authorization": f"Bearer {self.token}"
         }
 
-        response = self.client.get('/education/lesson_list/', headers=heard)
+        response = self.client.get('/study/lesson_list/', headers=heard)
 
         self.assertEqual(
                          response.status_code,
@@ -64,7 +64,7 @@ class LessonApiTestCase(APITestCase):
                         )
 
     def test_retrieve_lesson(self):
-        """Тестирование вывода одного урока"""
+        """ Тестирование вывода одного урока """
         course = Course.objects.create(
                                         title_course='Тестовый курс',
                                         description_course='Тест',
@@ -79,7 +79,7 @@ class LessonApiTestCase(APITestCase):
             "Authorization": f"Bearer {self.token}"
         }
 
-        response = self.client.get(f'/education/lesson_retrieve/{lesson.id}/', headers=heard)
+        response = self.client.get(f'/study/lesson_retrieve/{lesson.id}/', headers=heard)
 
         self.assertEqual(
                          response.status_code,
@@ -87,7 +87,7 @@ class LessonApiTestCase(APITestCase):
                         )
 
     def test_update_lesson(self):
-        """Тестирование редактирования урока"""
+        """ Тестирование редактирования урока """
         course = Course.objects.create(
                                         title_course='Тестовый курс',
                                         description_course='Тест',
@@ -106,7 +106,7 @@ class LessonApiTestCase(APITestCase):
             'title_lesson': 'Test lesson update'
         }
 
-        response = self.client.patch(f'/education/lesson_update/{lesson.id}/', data=data, headers=heard)
+        response = self.client.patch(f'/study/lesson_update/{lesson.id}/', data=data, headers=heard)
 
         self.assertEqual(
                          response.status_code,
@@ -119,7 +119,7 @@ class LessonApiTestCase(APITestCase):
                         )
 
     def test_delete_lesson(self):
-        """Тестирование удаления урока"""
+        """ Тестирование удаления урока """
         course = Course.objects.create(
                                         title_course='Тестовый курс',
                                         description_course='Тест',
@@ -134,7 +134,7 @@ class LessonApiTestCase(APITestCase):
             "Authorization": f"Bearer {self.token}"
         }
 
-        response = self.client.delete(f'/education/lesson_destroy/{lesson.id}/', headers=heard)
+        response = self.client.delete(f'/study/lesson_destroy/{lesson.id}/', headers=heard)
 
         self.assertEqual(
                          response.status_code,
@@ -143,7 +143,7 @@ class LessonApiTestCase(APITestCase):
 
 
 class SubscriptionTestCase(APITestCase):
-    """ Тесты на создание и удаление подписки"""
+    """ Тесты на создание и удаление подписки """
     def setUp(self) -> None:
         user = User.objects.create(email='test@test.test', is_active=True)
         user.set_password('test_password')
@@ -153,7 +153,7 @@ class SubscriptionTestCase(APITestCase):
         self.user = user
 
     def test_create_subscription(self):
-        """Тестирование создания подписки"""
+        """ Тестирование создания подписки """
         heard = {
             "Authorization": f"Bearer {self.token}"
         }
@@ -164,7 +164,7 @@ class SubscriptionTestCase(APITestCase):
         data = {
             'course_subscription': course.id,
         }
-        response = self.client.post('/education/subscription_create/', data=data, headers=heard)
+        response = self.client.post('/study/subscription_create/', data=data, headers=heard)
 
         self.assertEqual(
                          response.status_code,
@@ -172,7 +172,7 @@ class SubscriptionTestCase(APITestCase):
                         )
 
     def test_delete_subscription(self):
-        """Тестирование удаления подписки"""
+        """ Тестирование удаления подписки """
         heard = {
             "Authorization": f"Bearer {self.token}"
         }
@@ -184,7 +184,7 @@ class SubscriptionTestCase(APITestCase):
                                                     user=self.user,
                                                     course_subscription=course
                                                   )
-        response = self.client.delete(f'/education/subscription_destroy/{subscription.id}/', headers=heard)
+        response = self.client.delete(f'/study/subscription_destroy/{subscription.id}/', headers=heard)
 
         self.assertEqual(
                          response.status_code,
