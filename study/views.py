@@ -85,7 +85,7 @@ class LessonUpdateAPIView(UpdateAPIView):
     """ Редактирование сущности (Generic-класс)"""
     serializer_class = LessonSerializer
     #queryset = Lesson.objects.all()
-    permission_classes = [IsAuthenticated, IsModeratorOrReadOnly | IsCourseOrLessonOwner]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         if self.request.user.role == UserRoles.MODERATOR:
@@ -98,7 +98,7 @@ class LessonDestroyAPIView(DestroyAPIView):
     """ Удаление сущности (Generic-класс)"""
     serializer_class = LessonSerializer
     #queryset = Lesson.objects.all()
-    permission_classes = [IsAuthenticated, IsModeratorOrReadOnly | IsCourseOrLessonOwner]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         """ Доступ к обьекту имеют только его владельцы и модератор """
@@ -117,7 +117,7 @@ class LessonDestroyAPIView(DestroyAPIView):
 class SubscriptionCreateAPIView(CreateAPIView):
     """ Создание сущности (Generic-класс_Подписка) """
     serializer_class = SubscriptionSerializer
-    queryset = Subscription.objects.all()
+    #queryset = Subscription.objects.all()
     permission_classes = [IsAuthenticated, IsModeratorOrReadOnly | IsCourseOrLessonOwner]
 
     def perform_create(self, serializer):
@@ -128,4 +128,4 @@ class SubscriptionCreateAPIView(CreateAPIView):
 class SubscriptionDestroyAPIView(DestroyAPIView):
     """ Удаление сущности (Generic-класс_Подписка) """
     queryset = Subscription.objects.all()
-    permission_classes = [IsAuthenticated, IsModeratorOrReadOnly | IsCourseOrLessonOwner]
+    permission_classes = [IsAuthenticated]
