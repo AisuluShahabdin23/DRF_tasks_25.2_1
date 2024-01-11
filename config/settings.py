@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'users',
     'study',
+    'drf_yasg',
     'payment',
 ]
 
@@ -139,3 +141,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+stripe.api_key = 'sk_test_51OPrL0FA8bwzNlKAccboalFsU9PMecDMNqw0AmTAGCSkgKlXbZF3ssokVNU71gSutkFYzjcamxD5X1s3dlSWTjOe00CRoKBFAa'
+
+CORS_ALLOWED_ORIGINS = [
+    "https://read-only.example.com",
+    "https://read-and-write.example.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",
+]
+CORS_ALLOW_ALL_ORIGINS = False
